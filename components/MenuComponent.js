@@ -1,13 +1,26 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Text } from 'react-native';
 import {  FlatList } from 'react-native';
 import { ListItem, Avatar } from 'react-native-elements';
+import { DISHES } from '../shared/dishes';
 
-function Menu(props) {
+class Menu extends Component {
+
+  constructor(props) {
+      super(props);
+      this.state = {
+          dishes: DISHES
+      };
+  }
+
+
+  render() {
+
+      const { navigate } = this.props.navigation;
 
 
    const renderItem = ({ item }) => (
-        <ListItem onPress={() => props.onPress(item.id)} hideChevrom={true} >
+        <ListItem onPress={() => navigate('Dishdetail', { dishId: item.id })} hideChevrom={true} >
         <Avatar rounded source={require('./images/uthappizza.png')} />
           <ListItem.Content>
             <ListItem.Title>{item.name}</ListItem.Title>
@@ -19,13 +32,13 @@ function Menu(props) {
     return (
             <FlatList 
 
-                data={props.dishes}
+                data={this.state.dishes}
                 renderItem={renderItem}
                 keyExtractor={item => item.id.toString()}
 
                 />
     );
 }
-
+}
 
 export default Menu;
