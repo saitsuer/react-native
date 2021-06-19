@@ -3,17 +3,19 @@ import { View, Platform, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import Contact from "./ContactComponent";
+import About from "./AboutComponent";
 import Home from "./HomeComponent";
 import Menu from './MenuComponent';
 import Dishdetail from './DishdetailComponent';
 
 
-const MenuNavigator = createStackNavigator();
-const HomeNavigator = createStackNavigator();
+const stack = createStackNavigator();
+
 
 function MenuNavigatorScreen() {
     return (
-        <MenuNavigator.Navigator
+        <stack.Navigator
             initialRouteName='Menu'
             screenOptions={{
                 headerStyle: {
@@ -25,22 +27,22 @@ function MenuNavigatorScreen() {
                 }
             }}
         >
-            <MenuNavigator.Screen
+            <stack.Screen
                 name="Menu"
                 component={Menu}
             />
-            <MenuNavigator.Screen
+            <stack.Screen
                 name="Dishdetail"
                 component={Dishdetail}
                 options={{ headerTitle: "Dish Detail" }}
             />
-        </MenuNavigator.Navigator>
+        </stack.Navigator>
     );
 }
 
 function HomeNavigatorScreen() {
     return (
-        <HomeNavigator.Navigator
+        <stack.Navigator
             initialRouteName='Menu'
             screenOptions={{
                 headerStyle: {
@@ -52,11 +54,56 @@ function HomeNavigatorScreen() {
                 }
             }}
         >
-            <HomeNavigator.Screen
+            <stack.Screen
                 name="Home"
                 component={Home}
             />
-        </HomeNavigator.Navigator>
+
+        </stack.Navigator>
+    );
+}
+
+function ContactUsNavigatorScreen() {
+    return (
+        <stack.Navigator
+            initialRouteName='Menu'
+            screenOptions={{
+                headerStyle: {
+                    backgroundColor: "#512DA8"
+                },
+                headerTintColor: "#fff",
+                headerTitleStyle: {
+                    color: "#fff"
+                }
+            }}
+        >
+            <stack.Screen
+                name="Contact Us"
+                component={Contact}
+            />
+        </stack.Navigator>
+    );
+}
+
+function AboutUsNavigatorScreen() {
+    return (
+        <stack.Navigator
+            initialRouteName='Menu'
+            screenOptions={{
+                headerStyle: {
+                    backgroundColor: "#512DA8"
+                },
+                headerTintColor: "#fff",
+                headerTitleStyle: {
+                    color: "#fff"
+                }
+            }}
+        >
+            <stack.Screen
+                name="About Us"
+                component={About}
+            />
+        </stack.Navigator>
     );
 }
 
@@ -71,6 +118,8 @@ class Main extends Component {
                 <Drawer.Navigator initialRouteName="Home" drawerStyle={{ backgroundColor: '#D1C4E9' }}>
                     <Drawer.Screen name="Home" component={HomeNavigatorScreen} />
                     <Drawer.Screen name="Menu" component={MenuNavigatorScreen} />
+                    <Drawer.Screen name="Contact Us" component={ContactUsNavigatorScreen} />
+                    <Drawer.Screen name="About Us" component={AboutUsNavigatorScreen} />
                 </Drawer.Navigator>
                 {/* <MenuNavigatorScreen /> */}
             </NavigationContainer>
