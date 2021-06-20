@@ -39,7 +39,7 @@ class About extends Component {
             );
         };
         return (
-            <ScrollView>
+            <View>
                 <History />
                 <Card>
                     <Card.Title>Corporate Leadership</Card.Title>
@@ -50,7 +50,7 @@ class About extends Component {
                         keyExtractor={item => item.id.toString()}
                     />
                 </Card>
-            </ScrollView>
+            </View>
         );
     }
 }
