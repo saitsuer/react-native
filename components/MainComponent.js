@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { View, Platform, Button, Text, ScrollView, Image, StyleSheet } from 'react-native';
+import { View, Platform, Text, ScrollView, Image, StyleSheet, SafeAreaView } from 'react-native';
 import { Icon } from "react-native-elements";
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator, DrawerItems, SafeAreaView } from '@react-navigation/stack';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator, DrawerItemList } from '@react-navigation/drawer';
 import Contact from "./ContactComponent";
 import About from "./AboutComponent";
 import Home from "./HomeComponent";
@@ -129,12 +129,43 @@ function AboutUsNavigatorScreen({ navigation }) {
     );
 }
 
+const CustomDrawerContentComponent = (props) => (
+
+    <SafeAreaView>
+        <ScrollView>
+            <View style={styles.drawerHeader}>
+                <View style={{ flex: 1 }}>
+                    <Image source={require('./images/logo.png')} style={styles.drawerImage} />
+                </View>
+                <View style={{ flex: 2 }}>
+                    <Text style={styles.drawerHeaderText}>Ristorante Con Fusion</Text>
+                </View>
+            </View>
+            <DrawerItemList {...props} />
+        </ScrollView >
+    </SafeAreaView>
+
+    // <ScrollView>
+    //     <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
+    //         <View style={styles.drawerHeader}>
+    //             <View style={{ flex: 1 }}>
+    //                 <Image source={require('./images/logo.png')} style={styles.drawerImage} />
+    //             </View>
+    //             <View style={{ flex: 2 }}>
+    //                 <Text style={styles.drawerHeaderText}>Ristorante Con Fusion</Text>
+    //             </View>
+    //         </View>
+    //         <DrawerItems {...props} />
+    //     </SafeAreaView>
+    // </ScrollView>
+);
+
 const Drawer = createDrawerNavigator();
 
 function MainNavigator() {
     return (
 
-        <Drawer.Navigator initialRouteName="Home" drawerStyle={{ backgroundColor: '#D1C4E9' }}>
+        <Drawer.Navigator initialRouteName="Home" drawerStyle={{ backgroundColor: '#D1C4E9' }} drawerContent={(props) => <CustomDrawerContentComponent {...props} />} >
             <Drawer.Screen name="Home" component={HomeNavigatorScreen}
                 options={{
                     drawerIcon: ({ tintColor }) => (
@@ -169,6 +200,7 @@ function MainNavigator() {
 
 
 
+
 class Main extends Component {
 
     render() {
@@ -187,5 +219,29 @@ class Main extends Component {
         );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+    drawerHeader: {
+        backgroundColor: '#512DA8',
+        height: 140,
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 1,
+        flexDirection: 'row'
+    },
+    drawerHeaderText: {
+        color: 'white',
+        fontSize: 24,
+        fontWeight: 'bold'
+    },
+    drawerImage: {
+        margin: 10,
+        width: 80,
+        height: 60
+    }
+});
 
 export default Main;
