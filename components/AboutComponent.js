@@ -4,6 +4,7 @@ import { Avatar, ListItem } from 'react-native-elements';
 import { Card } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { baseUrl } from '../shared/baseUrl';
+import { Loading } from './LoadingComponent';
 
 const mapStateToProps = state => {
     return {
@@ -38,20 +39,45 @@ class About extends Component {
                 </ListItem>
             );
         };
-        return (
-            <ScrollView>
-                <History />
-                <Card>
-                    <Card.Title>Corporate Leadership</Card.Title>
-                    <Card.Divider />
-                    <FlatList
-                        data={this.props.leaders.leaders}
-                        renderItem={renderMenuItem}
-                        keyExtractor={item => item.id.toString()}
-                    />
-                </Card>
-            </ScrollView>
-        );
+
+        if (this.props.leaders.isLoading) {
+            return (
+                <ScrollView>
+                    <History />
+                    <Card>
+                        <Card.Title>Corporate Leadership</Card.Title>
+                        <Loading />
+                    </Card>
+                </ScrollView>
+            );
+        }
+        else if (this.props.leaders.errMess) {
+            return (
+                <ScrollView>
+                    <History />
+                    <Card>
+                        <Card.Title>Corporate Leadership</Card.Title>
+                        <Text>{this.props.leaders.errMess}</Text>
+                    </Card>
+                </ScrollView>
+            );
+        }
+        else {
+            return (
+                <ScrollView>
+                    <History />
+                    <Card>
+                        <Card.Title>Corporate Leadership</Card.Title>
+                        <Card.Divider />
+                        <FlatList
+                            data={this.props.leaders.leaders}
+                            renderItem={renderMenuItem}
+                            keyExtractor={item => item.id.toString()}
+                        />
+                    </Card>
+                </ScrollView>
+            );
+        }
     }
 }
 
